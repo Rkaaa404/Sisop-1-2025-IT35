@@ -5,7 +5,7 @@
 - Gemilang Ananda Lingua (*5027241072*)  
 
 ### Table of Contents :
-- [Nomor 1](#nomor-1)   
+- [Nomor 1](#nomor-1-gilang)   
        a. Menunjukkan buku-buku yang dibaca oleh Chris Hemsworth   
        b. Rata-rata durasi membaca  
        c. Pembaca dengan rating tertinggi  
@@ -21,7 +21,7 @@
        c. Time  
        d. Money  
        e. Brain Damage   
-- [Nomor 4](#nomor-4)  
+- [Nomor 4](#nomor-4-aria)  
        a. Melihat summary dari data  
        b. Mengurutkan Pokemon berdasarkan data kolom  
        c. Mencari nama Pokemon tertentu  
@@ -29,7 +29,7 @@
        e. Error handling
        f. Help screen yang menarik
 
-### Nomor 1
+### Nomor 1 (Gilang)  
 a. Menunjukkan buku-buku yang dibaca oleh Chris Hemsworth   
 - Membuat file poppo_siroyo.sh menggunakan command “touch poppo_siroyo.sh” untuk membuat file bash
 - Membuat program untuk Menghitung jumlah buku yang dibaca oleh Chris Hemsworth
@@ -216,4 +216,10 @@ while [ 1 ]
     sleep 1
   done
 ```
-### Nomor 4
+### Nomor 4 (Aria)    
+./pokemon.sh pokemon_usage.csv --help  
+./pokemon.sh pokemon_usage.csv --info  
+./pokemon.sh pokemon_usage.csv --sort Usage%  
+./pokemon.sh pokemon_usage.csv --grep Pincurchin  
+./pokemon.sh pokemon_usage.csv --filter Electric  
+
