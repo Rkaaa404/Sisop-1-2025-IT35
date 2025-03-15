@@ -169,7 +169,7 @@ done
 ```
 Jadi pertama akan menampilkan teks ___loading...___ yang lalu ada for loops hingga 25 iterasi. Pemilihan angka 25 inin dikarenakan merupakan 1/4 dari 100 sehingga dalam perhitungan persen akan menjadi lebih mudah. Pertama dilakukan random untuk mendapatkan angka antara 0-10, hasilnya akan dipipe dan dibagi sepuluh, angka inilah yang nanti digunakan sebagai waktu sleep. Kedua ada perhitungan belum dan persen dimana belum merupakan 25 (total iterasi) dikurangi $i (iterasi saat ini) dan persen merupakan persentasi selesainya progress bar. Ketiga ada sub_bar, sub_bar ini pecahan yang menjadi penyusun bar nanti, dimana dibagi menjadi 2 yaitu "#" untuk menggambarkan selesai dan "-" untuk menggambarkan belum selesai. Cara kerja sub_bar adalah melakukan print space atau " " sebanyak variabel yang menentukan jumlah mereka ($i untuk selesai dan $belum untuk belum selesai), nanti print tersebut di pipe ke command ___tr___ yang memungkinkan untuk menukar " " menjadi karakter yang kita mau yaitu "#" dan "-". Terakhir melakukan echo -ne yang dimana memungkinkan echo untuk tidak print newline dan mengeksekusi seperti \r yang menjadikan teks bisa terefresh atau terisi kembali dengan iterasi berikutnya 
 
-*c. Time*
+*c. Time*  
 Membuat program jam yang refresh tiap satu detik dengan format tanggal dan jam
 ``` bash
 while [ 1 ]
@@ -181,7 +181,7 @@ done
 ```
 Infinity loop dan melakukan pemanggilan command date yang mengahsilkan tanggal dan jam, dimana %x untuk tanggal dan %H:%M:%S untuk jam:menit:sekon. Selanjutnya diprint  dengan echo -ne dengan \r agar tiap loop merefresh yang sebelumnya dan tidak melakukan newline, tidak lupa sleep 1 agar updatenya tiap 1 detik.
 
-*d. Money*
+*d. Money*  
 Membuat program serupa dengan cmatrix namun dengan menampilkan tanda mata uang
 ```bash
  while [ 1 ]
@@ -205,7 +205,7 @@ Membuat program serupa dengan cmatrix namun dengan menampilkan tanda mata uang
     tput cup 0 0 
   done
 ```
-*e. Brain Damage*
+*e. Brain Damage*  
 Membuat program serupa ps aux namun update tiap 1 detik
 ``` bash
 while [ 1 ]
