@@ -14,14 +14,12 @@ do
     echo "Invalid email!"
   else
     break # keluar dari loop
-  fi  
+  fi
+  # Cek apakah email sudah ada
+  if grep -q ".*, $email, .*" data/player.csv; then
+    echo "Email used"
+  fi
 done
-  
-# Cek apakah email sudah ada
-if grep -q ".*, $email, .*" data/player.csv; then
-  echo "Email sudah digunakan! Registrasi gagal."
-  exit 1
-fi
 
 while  [ 1 ] # Cek password input (Radiant Genesis / B)
 do
