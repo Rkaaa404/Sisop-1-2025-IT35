@@ -30,9 +30,13 @@
        f. Help screen yang menarik
 
 ### Nomor 1 (Gilang)  
-*a. Menunjukkan buku-buku yang dibaca oleh Chris Hemsworth*   
-- Membuat file poppo_siroyo.sh menggunakan command “touch poppo_siroyo.sh” untuk membuat file bash
-- Membuat program untuk Menghitung jumlah buku yang dibaca oleh Chris Hemsworth
+*a. Membuat file bash*
+```
+touch poppo_siroyo.sh
+```
+
+*b. Menunjukkan buku-buku yang dibaca oleh Chris Hemsworth*   
+Menulis program AWK ke dalam poppo_siroyo.sh untuk menghitung jumlah buku yang dibaca oleh Chris Hemsworth:
 ```
 BEGIN {
     FS=","
@@ -54,9 +58,12 @@ END {
 }
 ```
 
-- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan. Disini, saya menggunakan command “awk -f poppo_siroyo.sh reading_data.csv” agar program berjalan dan membaca isi dari file yang sudah diberikan
+- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan.
+```
+awk -f poppo_siroyo.sh reading_data.csv
+```
 
-*b. Rata-rata durasi membaca*  
+*c. Rata-rata durasi membaca*  
 - Setelah berhasil mendapatkan output yang sesuai pada soal “Menunjukkan buku-buku yang dibaca oleh Chris Hemsworth” Langkahselanjutnya yaitu membuat program untuk menghitung rata rata durasi membaca dengan Tablet.
 - Membuat program untuk Menghitung rata-rata durasi membaca dengan Tablet
 ```
@@ -76,11 +83,18 @@ END {
         print "Tidak ada data membaca dengan Tablet."
 }
 ```
-- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan. Disini, saya menggunakan command “awk -f poppo_siroyo.sh reading_data.csv” agar program berjalan dan membaca isi dari file yang sudah diberikan
+- Tambahkan program ke dalam file poppo_siroyo.sh:
+```
+nano popo_siroyo.sh
+```
+- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan.
+```
+awk -f poppo_siroyo.sh reading_data.csv
+```
 
  *c. Pembaca dengan rating tertinggi*  
 - Setelah berhasil mendapatkan output yang sesuai pada soal “Rata-rata durasi membaca ” Langkah selanjutnya yaitu membuat program untuk Mencari pembaca dengan rating tertinggi.
-- Membuat program untuk Mencari pembaca dengan rating tertinggi
+- Membuat program untuk Mencari pembaca dengan rating tertinggi dengan kode : 
 ``` bash
 BEGIN { FS=",";max_rating=0;name="";book="";}
 NR > 1 {
@@ -99,7 +113,14 @@ END {
     }
 }
 ```
-- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan. Disini, saya menggunakan command “awk -f poppo_siroyo.sh reading_data.csv” agar program berjalan dan membaca isi dari file yang sudah diberikan
+- Tambahkan program ke dalam file poppo_siroyo.sh:
+```
+nano popo_siroyo.sh
+```
+- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan.
+```
+awk -f poppo_siroyo.sh reading_data.csv
+```
 
 *d. Genre paling populer di Asia setelah 2023*
 - Setelah berhasil mendapatkan output yang sesuai pada soal “Pembaca dengan rating tertinggi ” Langkah selanjutnya yaitu membuat program untuk Mencari genre paling populer di Asia setelah 2023
@@ -129,7 +150,14 @@ else
 }
 ```
 
-- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan. Disini, saya menggunakan command “awk -f poppo_siroyo.sh reading_data.csv” agar program berjalan dan membaca isi dari file yang sudah diberikan
+- Tambahkan program ke dalam file poppo_siroyo.sh:
+```
+nano popo_siroyo.sh
+```
+- Save program dan melakukan uji, untuk memeriksa apakah output dari program tersebut sesuai dengan kriteria yang sudah ditentukan.
+```
+awk -f poppo_siroyo.sh reading_data.csv
+```
 
 ### Nomor 2 (Kelompok)  
 *- First Step in a New World & Radiant Genesis*  
