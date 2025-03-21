@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # if condition buat negcheck data dah ada atau belum
 if  [[ ! -f data/player.csv ]]
 then
@@ -22,6 +21,8 @@ hashed_input=$(echo -n "$salt$login_pass" | sha256sum | awk '{print $1}')
 if grep -q "^.*, $login_email, $hashed_input" "data/player.csv"
 then
   echo "Login successful!"
+  echo "System unlocked!"
+  ./scripts/manager.sh
 else
   echo "Login failed..."
 fi
