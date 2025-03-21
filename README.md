@@ -15,6 +15,11 @@
        b. Radiant Genesis  
        c. Unceasing Spirit  
        d. The Eternal Realm of Light  
+       e. The Brutality of Glass  
+       f. In Grief and Great Delight  
+       g. On Fate's Approach  
+       h. The Disfigured Flow of Time  
+       i. Irruption of New Color  
 - [Nomor 3](#nomor-3-rayka)  
        a. Speak to Me  
        b. On the Run  
@@ -333,7 +338,169 @@ else
   echo "Login failed..."
 fi
 ```
-Pada bagian login, password juga perlu dilakukan hashing agar sama dengan password yang tersimpan dalam database
+Pada bagian login, password juga perlu dilakukan hashing agar sama dengan password yang tersimpan dalam database  
+
+- The Brutality of Glass
+Membuat program yang menyimpan data mengenai CPU:
+```bash
+# Membuar variable untu CPU Usage dan Model
+CPU_Usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}') # mengambil data CPU Usage
+CPU_Model=$(grep name /proc/cpuinfo | uniq | awk -F ': ' '{print $2}') # mengambil kolom ke dua yang dipisahkan oleh ": ", dimana berisi nama CPU
+```
+
+- In Grief and Great Delight
+Membuat program yang menyimpan data mengenai RAM:
+```bash
+# Menghitung RAM_Total
+RAM_Total=$(cat /proc/meminfo | grep MemTotal | awk '{print $2}')
+RAM_Total=$(echo "scale=0; $RAM_Total / 1000" | bc)
+
+# Menghitung RAM_Available
+RAM_Available=$(cat /proc/meminfo | grep MemAvailable | awk '{print $2}')
+RAM_Available=$(echo "scale=0; $RAM_Available / 1000" | bc)
+
+# Menghitung RAM_Count
+RAM_Count=$(($RAM_Total - $RAM_Available))
+
+# Menghitung persentase RAM_Usage
+RAM_Usage=$(echo "scale=1; ($RAM_Available / $RAM_Total) * 100" | bc)
+```  
+- On Fate's Approach
+Membuat tampilan menu
+```bash
+Terminal(){ # Print menu atau terminal
+echo "+-----------------------------+------------+"
+echo "| Option                      | (ID)       |"
+echo "+-----------------------------+------------+"
+echo "| Add CPU [Core] Usage        | (1)        |"
+echo "| Remove CPU [Core] Usage     | (2)        |"
+echo "| Add RAM [Fragment] Usage    | (3)        |"
+echo "| Remove RAM [Fragment] Usage | (4)        |"
+echo "| View All Scheduled Jobs     | (5)        |"
+echo "| Exit Terminal               | (6)        |"
+echo "+-----------------------------+------------+"
+}
+```
+- The Disfigured Flow of Time
+Membuat program dapat melakukan crontab dengan format yang sudah dijelaskan, hal ini membuat diperlukannya perubahan pada ketiga scripts yaitu (note: ini hanya menekankan perubahan yang terjadi, bukan full code):
+___manager.sh___:
+```bash
+while [1]
+do
+  Terminal
+
+  # Minta input user
+  echo "Enter option [1-6]: "
+  read choice
+  echo ""
+  case $choice in
+    1)
+       (crontab -l; echo "*/5 * * * * /bin/bash $(pwd)/scripts/core_monitor.sh") | crontab -
+       ;;
+    2)
+       crontab -l | greb -v 'core_monitor.sh' | crontab -
+       ;;
+    3)
+       (crontab -l; echo "*/5 * * * * /bin/bash $(pwd)/scripts/frag_monitor.sh") | crontab -
+       ;;
+    4)
+       crontab -l | greb -v 'fragment_monitor.sh' | crontab -
+       ;;
+    5)
+       crontab -l | greb -E 'core_monitor.sh|fragment_monitor.sh'
+       ;;
+    6)
+       echo "Exitting terminal..."
+       break
+       ;;
+    *)
+       echo "ga salah ta?";;
+done
+```
+Melakukan cronjobs tiap 5 menit  
+
+___frag_monitor.sh__:
+```bash
+# Membuat variable path
+logPath="../logs/fragment.log" # menyimpan path core.log
+
+# Membuat variable timestamp
+timestamp=$(date +"%Y-%m-%d %H:%M:%S") # menyimpan waktu dengan fromat tahun-bulan-hari jam:menit:detik
+
+# Membuat direktori ../logs terlebih dahulu, jika sudah ada tidak apa apa
+mkdir -p "../logs"
+
+# Append ke file fragment.log
+echo "[$timestamp] - Fragment Usage [$RAM_Usage%] - Fragment Count [$RAM_Count MB] - Details [Total: $RAM_Total MB, Available: $RAM_Available MB]" >> "$logPath"
+```
+Melakukan append ke log berupa text dengan format: [YYYY-MM-DD HH:MM:SS] - Fragment Usage [$RAM%] - Fragment Count [$RAM MB] - Details [Total: $TOTAL MB, Available: $AVAILABLE MB]  
+
+____core_monitor.sh___:
+```bash
+# Membuat variable path
+logPath="../logs/core.log" # menyimpan path core.log
+
+# Membuat variable timestamp
+timestamp=$(date +"%Y-%m-%d %H:%M:%S") # menyimpan waktu dengan fromat tahun-bulan-hari jam:menit:detik
+
+# Membuat direktori ../logs terlebih dahulu, jika sudah ada tidak apa apa
+mkdir -p "../logs"
+
+# Memasukkan data ke log file
+echo "[$timestamp] - Core Usage [$CPU_Usage%] - Terminal Model [$CPU_Model]" >> "$logPath"
+```
+Melakukan append ke log berupa text dengan format: [YYYY-MM-DD HH:MM:SS] - Core Usage [$CPU%] - Terminal Model [$CPU_Model]  
+- Irruption of New Color  
+Melakukan tambahan fitur di terminal menjadi:  
+```bash
+!#/bin/bash
+
+Terminal(){ # Print menu atau terminal
+echo "+-----------------------------+------------+"
+echo "| Option                      | (ID)       |"
+echo "+-----------------------------+------------+"
+echo "| Add CPU [Core] Usage        | (1)        |"
+echo "| Remove CPU [Core] Usage     | (2)        |"
+echo "| Add RAM [Fragment] Usage    | (3)        |"
+echo "| Remove RAM [Fragment] Usage | (4)        |"
+echo "| View All Scheduled Jobs     | (5)        |"
+echo "| Exit Terminal               | (6)        |"
+echo "+-----------------------------+------------+"
+}
+
+while [1]
+do
+  Terminal
+
+  # Minta input user
+  echo "Enter option [1-6]: "
+  read choice
+  echo ""
+  case $choice in
+    1)
+       (crontab -l; echo "*/5 * * * * /bin/bash $(pwd)/scripts/core_monitor.sh") | crontab -
+       ;;
+    2)
+       crontab -l | greb -v 'core_monitor.sh' | crontab -
+       ;;
+    3)
+       (crontab -l; echo "*/5 * * * * /bin/bash $(pwd)/scripts/frag_monitor.sh") | crontab -
+       ;;
+    4)
+       crontab -l | greb -v 'fragment_monitor.sh' | crontab -
+       ;;
+    5)
+       crontab -l | greb -E 'core_monitor.sh|fragment_monitor.sh'
+       ;;
+    6)
+       echo "Exitting terminal..."
+       break
+       ;;
+    *)
+       echo "ga salah ta?";;
+done
+``` 
+
 ### Nomor 3 (Rayka)
 Dalam pengerjaan menggunakan fungsi untuk tiap section agar lebih mudah dalam mengerjakan  
 
@@ -347,7 +514,11 @@ do
   sleep 1  
 done  
 ```
-Jadi akan melakukan infinity loop, yang berisikan proses pemanggilan API ___https://www.affirmations.dev___ yang menghasilkan output berupa JSON, output ini kita pipe ke command jq yang kemudian kita gunakan -r untuk remove string "affirmation". Selanjutnya dilakukan sleep 1 detik atau berhenti selama satu detik sebelum proses melakukan perulangan kembali.
+Jadi akan melakukan infinity loop, yang berisikan proses pemanggilan API ___https://www.affirmations.dev___ yang menghasilkan output berupa JSON, output ini kita pipe ke command jq yang kemudian kita gunakan -r untuk remove string "affirmation". 
+Selanjutnya dilakukan sleep 1 detik atau berhenti selama satu detik sebelum proses melakukan perulangan kembali.
+
+*OUTPUT*
+![Screenshot_2025-03-21_18_27_57](https://github.com/user-attachments/assets/cb028056-8d63-4c93-8dd7-7ce0a920fd17)
 
 *b. On the Run*  
 Membuat program yang menunjukkan progress bar atau loading dengan ketentuan memiliki kotak fix, persentase selesai, dan sleep time 0.1-1 detik.
@@ -369,6 +540,9 @@ done
 ```
 Jadi pertama akan menampilkan teks ___loading...___ yang lalu ada for loops hingga 25 iterasi. Pemilihan angka 25 inin dikarenakan merupakan 1/4 dari 100 sehingga dalam perhitungan persen akan menjadi lebih mudah. Pertama dilakukan random untuk mendapatkan angka antara 0-10, hasilnya akan dipipe dan dibagi sepuluh, angka inilah yang nanti digunakan sebagai waktu sleep. Kedua ada perhitungan belum dan persen dimana belum merupakan 25 (total iterasi) dikurangi $i (iterasi saat ini) dan persen merupakan persentasi selesainya progress bar. Ketiga ada sub_bar, sub_bar ini pecahan yang menjadi penyusun bar nanti, dimana dibagi menjadi 2 yaitu "#" untuk menggambarkan selesai dan "-" untuk menggambarkan belum selesai. Cara kerja sub_bar adalah melakukan print space atau " " sebanyak variabel yang menentukan jumlah mereka ($i untuk selesai dan $belum untuk belum selesai), nanti print tersebut di pipe ke command ___tr___ yang memungkinkan untuk menukar " " menjadi karakter yang kita mau yaitu "#" dan "-". Terakhir melakukan echo -ne yang dimana memungkinkan echo untuk tidak print newline dan mengeksekusi seperti \r yang menjadikan teks bisa terefresh atau terisi kembali dengan iterasi berikutnya 
 
+*OUTPUT*  
+![Screenshot_2025-03-21_18_27_37](https://github.com/user-attachments/assets/30c10e6b-5a2b-42aa-8334-57baab7c7f88)  
+
 *c. Time*  
 Membuat program jam yang refresh tiap satu detik dengan format tanggal dan jam
 ``` bash
@@ -379,8 +553,10 @@ do
   sleep 1
 done
 ```
-Infinity loop dan melakukan pemanggilan command date yang mengahsilkan tanggal dan jam, dimana %x untuk tanggal dan %H:%M:%S untuk jam:menit:sekon. Selanjutnya diprint  dengan echo -ne dengan \r agar tiap loop merefresh yang sebelumnya dan tidak melakukan newline, tidak lupa sleep 1 agar updatenya tiap 1 detik.
+Infinity loop dan melakukan pemanggilan command date yang mengahsilkan tanggal dan jam, dimana %x untuk tanggal dan %H:%M:%S untuk jam:menit:sekon. Selanjutnya diprint  dengan echo -ne dengan \r agar tiap loop merefresh yang sebelumnya dan tidak melakukan newline, tidak lupa sleep 1 agar updatenya tiap 1 detik.  
 
+*OUTPUT*  
+![Screenshot_2025-03-21_18_27_22](https://github.com/user-attachments/assets/d8c82c06-2c0c-4480-9d93-972b7a130ea0)  
 *d. Money*  
 Membuat program serupa dengan cmatrix namun dengan menampilkan tanda mata uang
 ```bash
@@ -405,6 +581,9 @@ Membuat program serupa dengan cmatrix namun dengan menampilkan tanda mata uang
     tput cup 0 0 
   done
 ```
+*OUTPUT*  
+![Screenshot_2025-03-21_18_26_58](https://github.com/user-attachments/assets/f7a1121f-564e-4fd1-89f4-57c37a3a3b69)  
+
 *e. Brain Damage*  
 Membuat program serupa ps aux namun update tiap 1 detik
 ``` bash
@@ -416,6 +595,12 @@ while [ 1 ]
     sleep 1
   done
 ```
+
+Jadi, disini melakukan printf "%-{i}s" yaitu membuat spasi kosong sebanyak i dengan left aligned, yang dimana nanti space kosong itu diisi oleh huruf atau hal yang ingin kita isi. Selanjutnya melakukan ps aux dan disortasi berdasarkan PID dari yang paling kecil ke besar, lalu mengambil data kolom 2, 1, 3, 4, 10, 11 dari baris yang lebih dari 1. Dikarenakan baris satu merupakan  header.  
+
+*Output*  
+![Screenshot_2025-03-21_18_27_08](https://github.com/user-attachments/assets/2a272f6c-f7ae-428d-83d3-0ef234fb8e07)  
+
 ### Nomor 4 (Aria)    
 ./pokemon.sh pokemon_usage.csv --help  
 ./pokemon.sh pokemon_usage.csv --info  
