@@ -30,6 +30,10 @@
        f. Help screen yang menarik
 
 ### Nomor 1 (Gilang)  
+- Download file csv yang diberikan oleh soal menggunakan wget
+```
+wget "https://drive.usercontent.google.com/u/0/uc?id=1l8fsj5LZLwXBlHaqhfJVjz_T0p7EJjqV&export=download" -O reading_data.csv
+```
 *a. Membuat file bash*
 ```
 touch poppo_siroyo.sh
