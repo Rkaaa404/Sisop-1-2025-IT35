@@ -3,7 +3,7 @@
 # Input Username
 echo "Enter username:"
 read uname
-  
+
 while [ 1 ] # Cek email input (Radiant Genesis / B)
 do
   # Input Email
@@ -12,17 +12,16 @@ do
   if [[ ! "$email" =~ @.*\. ]] # cek email apakah memiliki pola @<terserah>.
   then
     echo "Invalid email!"
+  elif grep -q ".*, $email, .*" data/player.csv # cek apakah email sudah ada
+  then
+    echo "Email used"
   else
     break # keluar dari loop
-  fi
-  # Cek apakah email sudah ada
-  if grep -q ".*, $email, .*" data/player.csv; then
-    echo "Email used"
-  fi
+  fi  
 done
 
 while  [ 1 ] # Cek password input (Radiant Genesis / B)
-do
+do    
   echo "Enter password:"
   read -s pass
   if  [[ ${#pass} -lt 8 ]] # Cek apakah jumlah angka (len)  dalam pass kurang dari 8
@@ -39,21 +38,19 @@ do
     echo "Password min. 1 number"
   else
     break # keluar dari loop
-  fi
-done
+  fi  
+done  
 # Hash password dengan static salt
 salt="arcaea_secure_salt"
 hashed_pass=$(echo -n "$salt$pass" | sha256sum | awk '{print $1}')
-  
-echo ""
-    
+
 # Cek udh ada belum filenya
 if  [[ ! -f data/player.csv ]]
 then
   mkdir -p data
   echo "username, email, password" > data/player.csv
-fi  
-  
+fi
+
 #kalau udh ada ya append aja
 echo "${uname}, ${email}, ${hashed_pass}" >> data/player.csv
 echo -e "Data saved successfully..."
